@@ -1,21 +1,16 @@
 @echo off
-:: 管理者権限かどうかをチェック
-net session >nul 2>&1
-if %errorLevel% EQU 0 (
-    echo 管理者として実行しないでください。
-    pause
-    exit /b
-)
 
-:: スクリプトのディレクトリに移動
-cd /d "%~dp0"
+echo アプリケーションを起動しています...
+start cmd /k "npm run dev"
 
-:: Node.jsアプリケーションの起動
-echo Node.js アプリケーションを起動しています...
-node note.js
 
-:: エラーが発生した場合にウィンドウを閉じないようにする
-if %errorLevel% neq 0 (
-    echo エラーが発生しました。続行するにはキーを押してください。
-    pause
-)
+:: 15秒待機
+echo サーバーが起動するまで15秒待機しています...
+timeout /t 15 /nobreak
+
+:: ブラウザを開く
+echo ブラウザを開いています...
+start http://localhost:3000
+
+:: バッチファイルを開いたままにする
+pause
