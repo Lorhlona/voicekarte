@@ -11,13 +11,20 @@ export const config = {
 };
 
 const parseForm = (req: NextApiRequest) =>
-  new Promise<{ fields: Fields; files: Files }>((resolve, reject) => {
-    const form = new IncomingForm();
-    form.parse(req, (err, fields, files) => {
-      if (err) reject(err);
-      else resolve({ fields, files });
+    new Promise<{ fields: Fields; files: Files }>((resolve, reject) => {
+        const uploadDir = path.join(process.cwd(), 'temp_uploads');
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true });
+        }
+        const form = new IncomingForm({
+            uploadDir,
+            keepExtensions: true,
+        });
+        form.parse(req, (err, fields, files) => {
+            if (err) reject(err);
+            else resolve({ fields, files });
+        });
     });
-  });
 
 interface TranscriptionResponse {
   text: string;
