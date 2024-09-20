@@ -72,7 +72,7 @@ yarn dev
 
 ### 2. ブラウザでアクセス
 
-[http://localhost:3000](http://localhost:3000) にアクセスして、アプリケーションを確認してください。
+[http://localhost:3000](http://localhost:3000) にアクセスして、アプリケーションを確認してください。chrome推奨です。
 
 ## 使い方
 
